@@ -1,5 +1,7 @@
-(function(global) {
-  "use strict";
+/* jshint browser:true, node:true */
+"use strict";
+
+module.exports = function(global) {
 
   /* Set up a RequestAnimationFrame shim so we can animate efficiently FOR
    * GREAT JUSTICE. */
@@ -725,6 +727,5 @@
       }
     }
   };
-
-  global.Skycons = Skycons;
-}(this));
+  return Skycons;
+};
