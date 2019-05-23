@@ -196,6 +196,7 @@ module.exports = function(global) {
   }
 
   function sun(ctx, t, cx, cy, cw, s, color) {
+    const suncolor = '#FFDC00'
     t /= 120000;
 
     var a = cw * 0.25 - s * 0.5,
@@ -203,7 +204,7 @@ module.exports = function(global) {
         c = cw * 0.50 - s * 0.5,
         i, p, cos, sin;
 
-    ctx.strokeStyle = color;
+    ctx.strokeStyle = suncolor;
     ctx.lineWidth = s;
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
@@ -222,13 +223,13 @@ module.exports = function(global) {
 
   function moon(ctx, t, cx, cy, cw, s, color) {
     t /= 15000;
-
+    const mooncolor = '#bdbdbd'
     var a = cw * 0.29 - s * 0.5,
         b = cw * 0.05,
         c = Math.cos(t * TAU),
         p = c * TAU / -16;
 
-    ctx.strokeStyle = color;
+    ctx.strokeStyle = mooncolor;
     ctx.lineWidth = s;
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
@@ -244,13 +245,13 @@ module.exports = function(global) {
 
   function rain(ctx, t, cx, cy, cw, s, color) {
     t /= 1350;
-
+    const raincolor = '#7FDBFF'
     var a = cw * 0.16,
         b = TAU * 11 / 12,
         c = TAU *  7 / 12,
         i, p, x, y;
 
-    ctx.fillStyle = color;
+    ctx.fillStyle = raincolor;
 
     for(i = 4; i--; ) {
       p = (t + i / 4) % 1;
@@ -286,7 +287,7 @@ module.exports = function(global) {
 
   function snow(ctx, t, cx, cy, cw, s, color) {
     t /= 3000;
-
+    const snowcolor = '#C2EEFF'
     var a  = cw * 0.16,
         b  = s * 0.75,
         u  = t * TAU * 0.7,
@@ -300,7 +301,7 @@ module.exports = function(global) {
         wy = Math.sin(w) * b,
         i, p, x, y;
 
-    ctx.strokeStyle = color;
+    ctx.strokeStyle = snowcolor;
     ctx.lineWidth = s * 0.5;
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
@@ -318,13 +319,13 @@ module.exports = function(global) {
 
   function fogbank(ctx, t, cx, cy, cw, s, color) {
     t /= 30000;
-
+    const fogcolor = '#AAA'
     var a = cw * 0.21,
         b = cw * 0.06,
-        c = cw * 0.21,
+        c = cw * 0.21,  
         d = cw * 0.28;
 
-    ctx.fillStyle = color;
+    ctx.fillStyle = fogcolor;
     puffs(ctx, t, cx, cy, a, b, c, d);
 
     ctx.globalCompositeOperation = 'destination-out';
@@ -416,7 +417,8 @@ module.exports = function(global) {
         e = Math.cos(d),
         f = Math.sin(d);
 
-    ctx.fillStyle = color;
+    const leafcolor = '#2C5228"'
+    ctx.fillStyle = leafcolor;
     ctx.strokeStyle = color;
     ctx.lineWidth = s;
     ctx.lineCap = "round";
@@ -525,21 +527,24 @@ module.exports = function(global) {
   }
 
   var Skycons = function(opts) {
+    console.log(opts)
         this.list        = [];
         this.interval    = null;
-        this.color       = opts && opts.color ? opts.color : "black";
+        this.color       = opts && opts.color ? opts.color : "white";
+      
         this.resizeClear = !!(opts && opts.resizeClear);
       };
 
   Skycons.CLEAR_DAY = function(ctx, t, color) {
+  
     var w = ctx.canvas.width,
         h = ctx.canvas.height,
         s = Math.min(w, h);
-
     sun(ctx, t, w * 0.5, h * 0.5, s, s * STROKE, color);
   };
 
   Skycons.CLEAR_NIGHT = function(ctx, t, color) {
+ 
     var w = ctx.canvas.width,
         h = ctx.canvas.height,
         s = Math.min(w, h);
@@ -547,7 +552,7 @@ module.exports = function(global) {
     moon(ctx, t, w * 0.5, h * 0.5, s, s * STROKE, color);
   };
 
-  Skycons.PARTLY_CLOUDY_DAY = function(ctx, t, color) {
+  Skycons.PARTLY_CLOUDY_DAY = function(ctx, t, color) { 
     var w = ctx.canvas.width,
         h = ctx.canvas.height,
         s = Math.min(w, h);
